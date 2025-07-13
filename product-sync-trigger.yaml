@@ -1,0 +1,10 @@
+name: auto-build-product-sync
+description: "Auto-build + deploy product-sync on pushes to main"
+github:
+  owner: passive-core
+  name: product-sync
+  push:
+    branch: '^main$'
+build:
+  buildConfig:
+    path: cloudbuild.yaml

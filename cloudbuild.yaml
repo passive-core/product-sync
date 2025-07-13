@@ -1,5 +1,3 @@
-options:
-
 steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
@@ -27,9 +25,9 @@ steps:
     - 'gcr.io/$PROJECT_ID/product-sync:$SHORT_SHA'
  
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-f', 'Dockerfile', '-t', 'gcr.io/$PROJECT_ID/product-sync:$SHORT_SHA', '.' ]
+args: [ 'build', '-f', 'Dockerfile', '-t', 'gcr.io/$PROJECT_ID/product-sync:$SHORT_SHA', '.' ]
 
-  args: [ 'push', 'gcr.io/$PROJECT_ID/product-sync:$SHORT_SHA' ]
+args: [ 'push', 'gcr.io/$PROJECT_ID/product-sync:$SHORT_SHA' ]
 
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
