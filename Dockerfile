@@ -3,6 +3,9 @@ FROM node:18-alpine
 
 # 2. Create app directory
 WORKDIR /app
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+COPY src/ ./src/
 COPY src/ ./src/
 
 # 3. Copy package manifests and install dependencies
@@ -17,4 +20,4 @@ COPY src/ ./src/
 EXPOSE 8080
 
 # 6. Define the default start command
-CMD ["node", "src/index.js"]
+CMD ["python","src/main.py"]
