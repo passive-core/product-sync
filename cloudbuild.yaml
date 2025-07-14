@@ -18,3 +18,11 @@ steps:
     - --image=gcr.io/$PROJECT_ID/product-sync:$BUILD_ID
     - --region=us-central1
     - --platform=managed
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - run
+    - jobs
+    - execute
+    - product-sync-job
+    - --region=us-central1
