@@ -1,14 +1,21 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/product-sync:$SHORT_SHA', '.']
+  args:
+    # tag with BUILD_ID (or 'latest' if empty)
+    - build
+    - -t
+    - 'gcr.io/$PROJECT_ID/product-sync:${BUILD_ID:-latest}'
+    - '.'
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/product-sync:$SHORT_SHA']
+  args:
+    - push
+    - 'gcr.io/$PROJECT_ID/product-sync:${BUILD_ID:-latest}'
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   args:
     - run
     - deploy
     - product-sync
-    - --image=gcr.io/$PROJECT_ID/product-sync:$SHORT_SHA
+    - --image=gcr.io/$PROJECT_ID/product-sync:${BUILD_ID:-latest}
     - --region=us-central1
     - --platform=managed
