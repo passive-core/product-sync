@@ -3,9 +3,11 @@ FROM node:18-alpine
 
 # 2. Create app directory
 WORKDIR /app
+COPY src/ ./src/
 
 # 3. Copy package manifests and install dependencies
-COPY package*.json ./
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
 RUN npm ci --only=production
 
 # 4. Copy your source code
