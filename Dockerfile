@@ -1,23 +1,15 @@
-# 1. Use lightweight Node.js base image
-FROM node:18-alpine
+# Use a slim Python image
+FROM python:3.12-slim
 
-# 2. Create app directory
+# Set working directory
 WORKDIR /app
-COPY requirements.txt ./
+
+# Copy and install Python deps
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY src/ ./src/
-COPY src/ ./src/
 
-# 3. Copy package manifests and install dependencies
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
-RUN npm ci --only=production
-
-# 4. Copy your source code
+# Copy your application code
 COPY src/ ./src/
 
-# 5. Expose the port your app listens on
-EXPOSE 8080
-
-# 6. Define the default start command
-CMD ["python","src/main.py"]
+# Default command
+CMD ["python", "src/main.py"]
